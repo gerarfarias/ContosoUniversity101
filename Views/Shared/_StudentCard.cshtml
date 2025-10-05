@@ -1,0 +1,10 @@
+﻿@model ContosoUniversity101.Models.Student
+
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">@Model.FullName</h5>
+        <p class="card-text">
+            Enrolled: @Model.EnrollmentDate.ToShortDateString()
+        </p>
+    </div>
+</div>

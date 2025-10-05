@@ -1,0 +1,43 @@
+﻿@model ContosoUniversity101.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Edit Enrollment";
+}
+
+<h1>Edit Enrollment</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" novalidate>
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="StudentId" class="form-label">Student</label>
+                <select asp-for="StudentId" class="form-select" asp-items="ViewBag.StudentId"></select>
+                <span asp-validation-for="StudentId" class="text-danger" role="alert"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CourseId" class="form-label">Course</label>
+                <select asp-for="CourseId" class="form-select" asp-items="ViewBag.CourseId"></select>
+                <span asp-validation-for="CourseId" class="text-danger" role="alert"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Grade" class="form-label">Grade</label>
+                <select asp-for="Grade" class="form-select" asp-items="ViewBag.GradeList"></select>
+                <span asp-validation-for="Grade" class="text-danger" role="alert"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
