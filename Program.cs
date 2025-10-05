@@ -1,16 +1,22 @@
 using ContosoUniversity101.Data;
-using ContosoUniversity101.Models;
+using ContosoUniversity101.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Configure EF Core with SQL Server (or InMemory for testing)
 builder.Services.AddDbContext<SchoolContext>(options =>
-    options.UseInMemoryDatabase("ContosoUniversityDB"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register StudentService
+builder.Services.AddScoped<StudentService>();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -19,31 +25,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
-app.UseAuthorization();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<SchoolContext>();
-    // Seed minimal data
-    if (!context.Students.Any())
-    {
-        context.Students.AddRange(
-            new Student { FirstName = "Carson", LastName = "Alexander", EnrollmentDate = DateTime.Parse("2023-09-01") },
-            new Student { FirstName = "Meredith", LastName = "Alonso", EnrollmentDate = DateTime.Parse("2024-01-15") },
-            new Student { FirstName = "Arturo", LastName = "Anand", EnrollmentDate = DateTime.Parse("2022-08-23") }
-        );
-    }
-    if (!context.Courses.Any())
-    {
-        context.Courses.AddRange(
-            new Course { Title = "Chemistry", Credits = 3 },
-            new Course { Title = "Microeconomics", Credits = 4 },
-            new Course { Title = "Macroeconomics", Credits = 4 }
-        );
-    }
-    context.SaveChanges();
-}
+app.UseRouting();
+
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

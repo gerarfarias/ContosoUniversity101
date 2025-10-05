@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContosoUniversity.Controllers
+namespace ContosoUniversity101.Controllers
 {
     public class HomeController : Controller
     {

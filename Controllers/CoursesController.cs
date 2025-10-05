@@ -1,12 +1,11 @@
-﻿using ContosoUniversity.Data;
-using ContosoUniversity101.Data;
+﻿using ContosoUniversity101.Data;
 using ContosoUniversity101.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ContosoUniversity.Controllers
+namespace ContosoUniversity101.Controllers
 {
     public class CoursesController : Controller
     {
